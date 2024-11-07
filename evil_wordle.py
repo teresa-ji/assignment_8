@@ -20,7 +20,7 @@ import random
 import sys
 
 # You may delete this import if you choose not to use this.
-from collections import defaultdict
+# from collections import defaultdict
 
 # ANSI escape codes for text color
 # These must be used by wrapping it around a single character string
@@ -150,12 +150,11 @@ class Keyboard:
                 # self.colors[letter] checks the color of the letter
                 colored_letter = color_word(self.colors[letter], letter)
                 colored_row.append(colored_letter)
-
-            for colored_letter in colored_row:
-                row_str += colored_letter
-                row_str += " "
+                
+            row_str = " ".join(colored_row)
 
             keyboard_str.append(row_str)
+
         # .join() turns a list into a string !!
         return "\n".join(keyboard_str)
 
@@ -304,7 +303,6 @@ def get_attempt_label(attempt_number):
 
     return f"{attempt_number}{suffix}"
 
-
 # DO NOT change this function
 def prepare_game():
     """
@@ -345,7 +343,7 @@ def prepare_game():
 
     return attempts, valid_words
 
-
+# TODO: Modify this function. You may delete this comment when you are done.
 def fast_sort(lst):
     """
     Returns a new list with the same elements as lst sorted in ascending order. You MUST implement
@@ -384,6 +382,7 @@ def fast_sort(lst):
     # merge sort: time always O(NlogN), space oct
     # quick sort: time usually O(NlogN), worst O(N^2)
 
+# TODO: Modify this function. You may delete this comment when you are done.
 def get_feedback_colors(secret_word, guessed_word):
     """
     Processes the guess and generates the colored feedback based on the potential secret word. This
