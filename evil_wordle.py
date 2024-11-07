@@ -103,8 +103,6 @@ class Keyboard:
             elif color == NOT_IN_WORD_COLOR and self.colors[letter] != CORRECT_COLOR and self.colors[letter ] != WRONG_SPOT_COLOR:
                 self.colors[letter] = NOT_IN_WORD_COLOR
 
-
-    # TODO: Modify this method. You may delete this comment when you are done.
     def __str__(self):
         """
         Returns a string representation of the keyboard, showing each letter in its
@@ -127,7 +125,39 @@ class Keyboard:
         post: Returns a formatted string with each letter colored according to feedback
               and arranged to match a typical keyboard layout.
         """
-        return ""
+        keyboard_str = []
+
+        # Ooh! Okay, so for this function, you just want to piece the output together
+        # We're outputting three rows of spaces + colored letters
+
+        # Iterate through one row of the keyboard at a time:
+        for i, row in enumerate(self.rows):
+            # Add spaces based on the row we're on:
+            if i == 1:
+                spaces = " "
+            elif i == 2:
+                spaces = "   "
+            else:
+                spaces = ""
+
+            # Begin with the right number of spaces
+            row_str = spaces
+
+            # Color the letters in the row
+            colored_row = []
+
+            for letter in row:
+                # self.colors[letter] checks the color of the letter
+                colored_letter = color_word(self.colors[letter], letter)
+                colored_row.append(colored_letter)
+
+            for colored_letter in colored_row:
+                row_str += colored_letter
+                row_str += " "
+
+            keyboard_str.append(row_str)
+        # .join() turns a list into a string !!
+        return "\n".join(keyboard_str)
 
 
 class WordFamily:
@@ -328,7 +358,8 @@ def fast_sort(lst):
     post: Returns a new sorted list of the items in lst.
 
     """
-
+    # Instead of using a midpt use a pivot
+    pivot = lst[0]
     middle = []
     left = []
     right = []
@@ -340,11 +371,10 @@ def fast_sort(lst):
     if len(lst) <= 1:
         return lst
 
-    midpt = len(lst)//2
-    for num in lst: 
-        if num < midpt:
+    for num in lst:
+        if num < pivot:
             left.append(num)
-        elif num > midpt:
+        elif num > pivot:
             right.append(num)
         else:
             middle.append(num)
@@ -397,7 +427,7 @@ def get_feedback_colors(secret_word, guessed_word):
             feedback[i] = NOT_IN_WORD_COLOR
 
     # You do not have to change this return statement
-    return color_word(feedback, guessed_word)
+    return feedback
 
 
 # TODO: Modify this function. You may delete this comment when you are done.
